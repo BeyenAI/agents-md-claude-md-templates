@@ -1,0 +1,15 @@
+---
+description: TypeScript, React Server Component, and Zod validation rules for application source files
+globs: src/**/*.{ts,tsx}
+alwaysApply: false
+---
+<!-- Generated with https://findaitier.com/cursor-rules-generator/ -->
+
+# TypeScript & Next.js Architecture Rules
+
+- **Strict Types**: Never use `any`, `as unknown as T`, or `@ts-ignore`. Narrow unknown inputs with Zod schemas from `src/lib/schemas/`.
+- **Server / Client Boundary**:
+  - Files in `src/app/` default to Server Components. Only add `"use client"` when a component directly uses React state/effect hooks or browser event listeners.
+  - Never import modules from `src/server/**` inside `"use client"` files.
+- **Error Handling**: Return structured result objects `{ ok: true, data } | { ok: false, error, code }` from Server Actions instead of throwing raw unhandled exceptions to the client.
+- **Verification**: After editing any `.ts` or `.tsx` file, run `pnpm tsc --noEmit` and the colocated `*.test.ts` file.

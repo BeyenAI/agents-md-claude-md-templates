@@ -1,0 +1,13 @@
+---
+description: Pytest conventions, async fixtures, and deterministic assertions for Python test files
+globs: tests/**/*.py
+alwaysApply: false
+---
+<!-- Generated with https://findaitier.com/cursor-rules-generator/ -->
+
+# Pytest Verification Rules
+
+- **Runner**: Always execute tests via `uv run pytest <path/to/test_file.py> -q`.
+- **No Live External Network**: Mock all external HTTP calls with `respx` or `httpx.MockTransport`. Never hit live third-party APIs in unit or integration tests.
+- **Database Isolation**: Use the transactional `db_session` fixture from `tests/conftest.py` so every test rolls back cleanly.
+- **Assertions**: Use plain `assert` statements and `pytest.raises(ExpectedError, match="...")`.
